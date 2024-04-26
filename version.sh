@@ -1,6 +1,7 @@
 CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 [ $CURRENT_VERSION == '' ] && echo "You need tag in repo" && exit 1
 echo "Current Version: $CURRENT_VERSION"
+
 #replace . with space so can split into an array
 CURRENT_VERSION_PARTS=(${CURRENT_VERSION//./ })
 #get number parts
@@ -11,6 +12,7 @@ VNUM3=${CURRENT_VERSION_PARTS[2]}
 CHANGES=$(git log --pretty=oneline HEAD...${CURRENT_VERSION} | awk '{ $1=""; print "-" $0 }')
 echo "Changes:"
 echo ${CHANGES}
+
 if [[ $CHANGES =~ "feat" ]]
 then
     VNUM2=$((VNUM2+1))
